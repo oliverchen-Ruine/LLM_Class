@@ -1,0 +1,15 @@
+chapters:
+  - title: 前情回顾
+    article: /workspace/readme.md
+    code: /workspace/code/3.1.ipynb
+  - title: 3.1 检索引擎实现
+    article: /workspace/.tutorial/3.1.md
+    code: /workspace/code/3.2.py
+  - title: 3.2 调用本地大模型生成答案
+    article: /workspace/.tutorial/3.2.md
+    code: /workspace/code/3.3.ipynb
+  - title: 3.4 后处理与多轮对话
+    article: /workspace/.tutorial/3.3.md
+    code: /workspace/code/3.4.py
+  - title: 3.5 统性能调优指南
+    article: /workspace/.tutorial/3.4.md

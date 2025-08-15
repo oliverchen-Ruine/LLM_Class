@@ -1,0 +1,1272 @@
+[
+  {
+    "id": 0,
+    "text": "PSDF: A Multi-Level Feature-Based Ponzi Scheme Detection Framework for Smart Contracts in Ethereum Hongliang Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China* Jie Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology,",
+    "length": 399
+  },
+  {
+    "id": 1,
+    "text": "Scheme Detection Framework for Smart Contracts in Ethereum Hongliang Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China* Jie Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day",
+    "length": 395
+  },
+  {
+    "id": 2,
+    "text": "Contracts in Ethereum Hongliang Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China* Jie Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The",
+    "length": 399
+  },
+  {
+    "id": 3,
+    "text": "Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China* Jie Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The Ethereum ecosystem is currently confronted with",
+    "length": 399
+  },
+  {
+    "id": 4,
+    "text": "of Technology, Jinan, 250353, China* Jie Zhang School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The Ethereum ecosystem is currently confronted with significant challenges due to the emergence of",
+    "length": 397
+  },
+  {
+    "id": 5,
+    "text": "School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The Ethereum ecosystem is currently confronted with significant challenges due to the emergence of Ponzi schemes in smart contracts, which weakens",
+    "length": 398
+  },
+  {
+    "id": 6,
+    "text": "University of Technology, Jinan, 250353, China† Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The Ethereum ecosystem is currently confronted with significant challenges due to the emergence of Ponzi schemes in smart contracts, which weakens trust in decentralized finance and exposes",
+    "length": 393
+  },
+  {
+    "id": 7,
+    "text": "Zihao Wu School of Computer Science and Technology, Qilu University of Technology, Jinan, 250353, China† Received (Day Month Year) Revised (Day Month Year) The Ethereum ecosystem is currently confronted with significant challenges due to the emergence of Ponzi schemes in smart contracts, which weakens trust in decentralized finance and exposes unsuspecting investors to potential risks.",
+    "length": 388
+  },
+  {
+    "id": 8,
+    "text": "To tackle the issue, this paper proposes a Ponzi scheme detection framework (PSDF) based on multi- level features, which is the framework specifically designed to detect Ponzi scheme smart contracts for eliminating model bias.Specifically, PSDF extracts bytecode features and combines them with account features to obtain initial features without relying on the source code of smart contracts.",
+    "length": 393
+  },
+  {
+    "id": 9,
+    "text": "out relying on the source code of smart contracts.Subsequently, the Ponzi network model (PonziNet) is designed in the framework to detect smart contract Ponzi schemes, which consists of a CNN- based feature extractor and a decision classifier using LightGBM.",
+    "length": 258
+  },
+  {
+    "id": 10,
+    "text": "xtractor and a decision classifier using LightGBM.Experimental results show that PSDF can accurately detect the smart contract Ponzi schemes in Ethereum, which improves the trust of users in the platform.Our code is publicly available at https://github.com/Federatedzhang/PSDF.Keywords: Ethereum ecosystem; Machine learning; Smart contract; Ponzi scheme; Feature extractor; Decision classifier.1.",
+    "length": 396
+  },
+  {
+    "id": 11,
+    "text": " scheme; Feature extractor; Decision classifier.1.Introduction Ethereum, a decentralized blockchain platform with smart contract capability, has experienced rapid development in the cryptocurrency field.Currently, it is ranked second in terms of market capitalization and occupies a crucial position in the realm of digital assets 1,2.",
+    "length": 335
+  },
+  {
+    "id": 12,
+    "text": "ucial position in the realm of digital assets 1,2.Therefore, Ethereum is widely used in supply chain finance 3, commerce 4, cryptocurrencies 5, securities 6, and insurance 7.While Ethereum is growing rapidly, it faces the security challenge of lacking robust auditing solutions for smart contracts.",
+    "length": 298
+  },
+  {
+    "id": 13,
+    "text": "ing robust auditing solutions for smart contracts.The challenge has led to fraudulent activities, such as Ponzi schemes deployed on Ethereum, which has caused serious property losses to investors $^{8}$ .",
+    "length": 204
+  },
+  {
+    "id": 14,
+    "text": "used serious property losses to investors $^{8}$ .Ponzi schemes (e.g., Charles Ponzi) are fraudulent schemes in which fraudsters use funds from new investors to pay off previous investors, rather than through legitimate transactions or actual investment returns $^{9}$ .Thus, the investors are both beneficiaries and victims.Nowadays, Ponzi schemes on Ethereum have caused huge financial losses.",
+    "length": 395
+  },
+  {
+    "id": 15,
+    "text": "mes on Ethereum have caused huge financial losses.Therefore, it is urgent to design effective methods for detecting and reviewing smart contracts on Ethereum $^{10}$ .At present, many solutions are proposed to detect Ponzi scheme smart contracts, such as rule- based, graph analysis- based, and machine learning- based methods.",
+    "length": 327
+  },
+  {
+    "id": 16,
+    "text": "lysis- based, and machine learning- based methods.Concretely, Rule- based solutions rely on predefined rules or heuristics to identify Ponzi schemes $^{11,12,13}$ .However, the solutions have difficulty adapting to the dynamic nature of Ponzi schemes and identifying the complex variables in the smart contracts $^{14}$ .",
+    "length": 321
+  },
+  {
+    "id": 17,
+    "text": "complex variables in the smart contracts $^{14}$ .Graph analysis- based solutions focus on analyzing relationships within smart contracts to identify potential Ponzi schemes and anomalous behavior $^{15,16,17}$ .",
+    "length": 212
+  },
+  {
+    "id": 18,
+    "text": "nzi schemes and anomalous behavior $^{15,16,17}$ .Yet, the solutions struggle to construct comprehensive and representative graphs that accurately capture the characteristics of Ponzi schemes, especially in large- scale smart contracts $^{18}$ .",
+    "length": 245
+  },
+  {
+    "id": 19,
+    "text": "pecially in large- scale smart contracts $^{18}$ .Meanwhile, both above solutions rely on the source code of smart contracts, which leads to the fact that auditing tools based on the above solutions fail to detect non- open- sourced smart contracts, which limits their detection scope $^{19}$ .",
+    "length": 294
+  },
+  {
+    "id": 20,
+    "text": "acts, which limits their detection scope $^{19}$ .Machine learning- based solutions utilize large datasets to train models that can detect Ponzi schemes $^{20}$ .Nevertheless, machine learning- based solutions make it difficult to extract key features of Ponzi schemes, which makes it difficult to accurately identify Ponzi contracts $^{21}$ .",
+    "length": 343
+  },
+  {
+    "id": 21,
+    "text": "t to accurately identify Ponzi contracts $^{21}$ .Meanwhile, only a few smart contracts are identified as Ponzi contracts on Ethereum, leading to model bias in these schemes because their models are trained based on class- imbalanced training data, which causes the models that are skewed for the majority class $^{22,23,24}$ .",
+    "length": 327
+  },
+  {
+    "id": 22,
+    "text": " are skewed for the majority class $^{22,23,24}$ .To overcome these limitations, a Ponzi scheme detection framework (PSDF) is proposed based on multi- level features to detect Ponzi scheme smart contracts.Specifically, PSDF combines bytecode features, account transaction features, multi- level feature engineering, and a PonziNet model to realize detection.",
+    "length": 358
+  },
+  {
+    "id": 23,
+    "text": "eering, and a PonziNet model to realize detection.First, the PSDF uses the smart contract's bytecode and account information to obtain the initial features of the smart contract.",
+    "length": 178
+  },
+  {
+    "id": 24,
+    "text": "obtain the initial features of the smart contract.Second, PSDF adopts the SMOTE- Tomek algorithm and multi- level feature engineering to convert initial features into multi- level features, where the multi- level features capture the fine- grained level properties and coarse- grained level characteristics of smart contracts and implement the class- balance of training data.",
+    "length": 376
+  },
+  {
+    "id": 25,
+    "text": "and implement the class- balance of training data.Finally, the PSDF utilizes PonziNet for the task of identifying smart contract Ponzi schemes, which includes a CNN- based feature extractor and a decision classifier with LightGBM.",
+    "length": 230
+  },
+  {
+    "id": 26,
+    "text": "extractor and a decision classifier with LightGBM.Concretely, the feature extractor extracts optimal features from multi- level features, and then the optimal features are input into the decision classifier to get detection results.Through these unique combinations, the PSDF significantly improves the accuracy of Ponzi scheme detection.The main contributions can be summarized as follows.",
+    "length": 390
+  },
+  {
+    "id": 27,
+    "text": "A Ponzi Scheme Detection Framework is proposed for Smart Contracts in Ethereum, which can extract bytecode features and combine them with account features to identify Ponzi schemes without relying on the source code of smart contracts, and expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can",
+    "length": 393
+  },
+  {
+    "id": 28,
+    "text": "in Ethereum, which can extract bytecode features and combine them with account features to identify Ponzi schemes without relying on the source code of smart contracts, and expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and",
+    "length": 399
+  },
+  {
+    "id": 29,
+    "text": "them with account features to identify Ponzi schemes without relying on the source code of smart contracts, and expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the",
+    "length": 396
+  },
+  {
+    "id": 30,
+    "text": "without relying on the source code of smart contracts, and expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level",
+    "length": 398
+  },
+  {
+    "id": 31,
+    "text": "of smart contracts, and expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level characteristics smart contracts.- A",
+    "length": 399
+  },
+  {
+    "id": 32,
+    "text": "expand the deployment of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level characteristics smart contracts.- A PonziNet model is",
+    "length": 393
+  },
+  {
+    "id": 33,
+    "text": "of PSDF.- PSDF can eliminate model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level characteristics smart contracts.- A PonziNet model is designed in PSDF for the",
+    "length": 396
+  },
+  {
+    "id": 34,
+    "text": "model bias by achieving class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level characteristics smart contracts.- A PonziNet model is designed in PSDF for the task of identifying smart",
+    "length": 393
+  },
+  {
+    "id": 35,
+    "text": "class-balanced training data to detect Ponzi scheme smart contracts.- PSDF can construct multi-level features from extracted both bytecode features and account features for data enhancement, which captures the fine-grained level properties and coarse-grained level characteristics smart contracts.- A PonziNet model is designed in PSDF for the task of identifying smart contract Ponzi schemes.",
+    "length": 393
+  },
+  {
+    "id": 36,
+    "text": "Meanwhile, extensive experiments demonstrate the superiority of PSDF compared to existing schemes.The rest of the paper is structured as follows.Section II provides an overview of current solutions for detecting Ponzi scheme smart contracts.Section III introduces the opcodes of Ethereum and Ponzi scheme.Section IV presents the proposed PSDF framework.",
+    "length": 353
+  },
+  {
+    "id": 37,
+    "text": "e.Section IV presents the proposed PSDF framework.Section V discusses experimental results, and Section VI concludes the research in the paper.2.Related Work In this section, existing works are discussed on detecting Ponzi scheme smart contracts, and the feasibility of PSDF is analyzed.2.1.",
+    "length": 291
+  },
+  {
+    "id": 38,
+    "text": "acts, and the feasibility of PSDF is analyzed.2.1.Ponzi Scheme Detection on Blockchain Blockchain technology has sparked a global investment boom, but its technical complexity makes it more difficult for investors to identify the Ponzi schemes hidden in smart contracts.",
+    "length": 270
+  },
+  {
+    "id": 39,
+    "text": "ntify the Ponzi schemes hidden in smart contracts.According to Cryptoanalysis, a virtual currency investigation and risk analysis company, Ponzi- related frauds on Ethereum amount to $725 million 25.To detect fraudulent activities on the blockchain, machine learning algorithms have been employed to develop an effective detection scheme 26,27.In 28, Chen et al.",
+    "length": 362
+  },
+  {
+    "id": 40,
+    "text": "ffective detection scheme 26,27.In 28, Chen et al.utilized the XGBoost algorithm to automatically detect Ponzi scheme smart contracts.However, the algorithm fails to solve the issue of class- imbalanced training data, which leads to model bias.Toyoda et al.",
+    "length": 257
+  },
+  {
+    "id": 41,
+    "text": "ning data, which leads to model bias.Toyoda et al.proposed a method for identifying high- yield accounts based on the frequency of bitcoin transactions, which provides guidance for detecting potential Ponzi scheme smart contracts 29.But the method relies on the frequency of Bitcoin transactions and ignores other more representative and comprehensive characteristics of smart contracts.Ibba et al.",
+    "length": 398
+  },
+  {
+    "id": 42,
+    "text": "ive characteristics of smart contracts.Ibba et al.trained machine learning models that utilized both account features and bytecode features of smart contracts as input features.The effectiveness of the features is evaluated by Decision Trees (DT), Support Vector Machines (SVM), and Naive Bayes (NB) algorithms 30.Chen et al.proposed a SADPonzi detection method based on symbolic execution.",
+    "length": 390
+  },
+  {
+    "id": 43,
+    "text": "onzi detection method based on symbolic execution.The method detects Ponzi schemes by analyzing the contract bytecode, extracting semantic information, and identifying investor- related trading behaviors 16.However, the SADPonzi is limited to bytecode review and does not involve transaction history.Jin et al.",
+    "length": 310
+  },
+  {
+    "id": 44,
+    "text": "nd does not involve transaction history.Jin et al.designed a module for enhancing features of smart contracts, which captures information from account behavior and employs machine learning techniques to detect Ponzi scheme smart contracts $^{31}$ , but when the transaction scale of smart contracts is relatively large, it is difficult to capture information about account behavior.He et al.",
+    "length": 391
+  },
+  {
+    "id": 45,
+    "text": "pture information about account behavior.He et al.extracted sequence features and account features from smart contracts, which the authors then fed into a random forest algorithm to detect Ponzi schemes $^{32}$ .However, random forests have limitations for dealing with highly complex, non- linear, or highly correlated data.",
+    "length": 325
+  },
+  {
+    "id": 46,
+    "text": "y complex, non- linear, or highly correlated data.Due to the significant advantages that deep learning has shown in various fields, researchers are gradually applying it to detect Ponzi scheme smart contracts.Concretely, Hu et al.proposed SCSGuard, a deep learning fraud detection framework $^{33}$ .",
+    "length": 300
+  },
+  {
+    "id": 47,
+    "text": " deep learning fraud detection framework $^{33}$ .The framework designs an attention neural network to analyze code features for detecting Ponzi scheme smart contracts.Due to the complexity and diversity of the code, the functionality and behavior of smart contracts cannot just be represented by code features.In $^{34}$ , Luo et al.converted contract bytecodes to grayscale images.",
+    "length": 383
+  },
+  {
+    "id": 48,
+    "text": ".converted contract bytecodes to grayscale images.Due to the different lengths of bytecodes, they designed a spatial pooling algorithm to improve the CNN's ability to better handle grayscale images with inconsistent sizes.Although the detection method is novel, it ignores the problem of model bias due to class- imbalanced training data.Wang et al.",
+    "length": 349
+  },
+  {
+    "id": 49,
+    "text": "due to class- imbalanced training data.Wang et al.introduced the SMOTE algorithm to solve class- imbalanced training data for Ponzi detection, which eliminated the model bias $^{35}$ .Although the problem is solved, the algorithm tends to cause the appearance of duplicate data, which negatively affects the model's accuracy and generalization capability.2.2.",
+    "length": 359
+  },
+  {
+    "id": 50,
+    "text": "odel's accuracy and generalization capability.2.2.Feasibility Analysis of the PSDF Our research is developed on the basis of previous work, as inspired by some of the following.Note that in $^{32}$ , $^{35}$ , and $^{36}$ , the authors highlighted the problem of class- imbalanced training data.",
+    "length": 295
+  },
+  {
+    "id": 51,
+    "text": "ed the problem of class- imbalanced training data.To solve this problem, PSDF integrates the SMOTE- Tomek algorithm to implement class- balanced training data, which can significantly eliminate model bias.Furthermore, multi- level feature engineering is inspired by $^{37}$ .Although the application scenarios are different, the work inspires our thinking.",
+    "length": 356
+  },
+  {
+    "id": 52,
+    "text": "ios are different, the work inspires our thinking.By considering both fine- grained level properties and coarse- grained level characteristics of smart contracts, PSDF captures a comprehensive understanding of smart contract behavior.In addition, Zhang et al.used the LightGBM algorithm to detect Ponzi contracts and obtain good results $^{38}$ .",
+    "length": 346
+  },
+  {
+    "id": 53,
+    "text": " Ponzi contracts and obtain good results $^{38}$ .Thus, the algorithm is incorporated into our PonziNet model.By highlighting the connection to related work, PSDF not only includes previous technologies but also designs new components such as PonziNet, which allows PSDF to overcome the limitations of existing methods and provide a more accurate detection mechanism for Ponzi scheme smart contracts.",
+    "length": 400
+  },
+  {
+    "id": 54,
+    "text": "ection mechanism for Ponzi scheme smart contracts.3.Preliminaries The section introduces some important preliminaries, including bytecode, opcode, and Ponzi contracts.3.1.Bytecode and Opcode Solidity is the most popular high- level language for writing smart contracts 39.",
+    "length": 272
+  },
+  {
+    "id": 55,
+    "text": "gh- level language for writing smart contracts 39.When creating a smart contract written in Solidity, the source code cannot be executed directly on the Ethereum Virtual Machine (EVM).Ethereum needs to compile the source code of a smart contract into bytecode and then store it as bytecode on Ethereum.",
+    "length": 302
+  },
+  {
+    "id": 56,
+    "text": "ytecode and then store it as bytecode on Ethereum.Concretely, the preparation phase consists of three processes: installing the compilation tool, writing the contract in Solidity, and starting the Ether node.Then, the compiler compiles the smart contract source code into bytecode.Finally, the miner uploads the verified bytecode to Ethereum.",
+    "length": 342
+  },
+  {
+    "id": 57,
+    "text": "e miner uploads the verified bytecode to Ethereum.EVM can store up to 256 different types of bytecodes, each with a different function.There is a one- to- one correspondence between opcodes and bytecodes, and each opcode corresponds to a bytecode.The appendix of the Ethereum Yellow Paper contains a complete list of bytecodes and their corresponding opcodes 40.3.2.",
+    "length": 366
+  },
+  {
+    "id": 58,
+    "text": " bytecodes and their corresponding opcodes 40.3.2.Ponzi Contract Algorithm 1, known as the Crystal Doubler, is a critical part of the execution of the Ponzi contract, which can be found at etherscan.io.The meaning of variables in the algorithm is described in Table 1.Table 1: Variable meaning in the Ponzi contract.",
+    "length": 316
+  },
+  {
+    "id": 59,
+    "text": "1.Table 1: Variable meaning in the Ponzi contract.VariableMeaningTotal PlayerTotal number of depositors.BalanceCurrent balance of the contract.Total DepositedTotal number of deposits.Total Paid_OutTotal payment of smart contract.AmountAmount of funds deposited by a depositor.DepositorsList of depositors.PayoutAmount of payments to depositors.nrIndex of a depositor.",
+    "length": 367
+  },
+  {
+    "id": 60,
+    "text": " of payments to depositors.nrIndex of a depositor.When a Ponzi contract is deployed on Ethereum, it initializes several variables.The depositor (investor) can enter the contract by providing a deposit amount.The contract keeps track of the depositor through the list of depositors and updates Total- Player, Balance, and Total Deposit.",
+    "length": 335
+  },
+  {
+    "id": 61,
+    "text": "updates Total- Player, Balance, and Total Deposit.Then, the contract starts the payment process by iterating the list of depositors and assigning payments to the previous depositors.The payout operation is executed when the balance of the contract is sufficient to cover $200\\%$ of the original amount invested by the previous depositor.",
+    "length": 337
+  },
+  {
+    "id": 62,
+    "text": "riginal amount invested by the previous depositor.Finally, the contract adjusts the Balance and TotalPaidOut variables accordingly.The flow of funds for the Ponzi contract is shown in Figure 1.Only early depositors in Ponzi contracts will receive a return.If no subsequent funds are invested in Ponzi contracts, Fig.1: The flow of funds in a Ponzi contract.",
+    "length": 357
+  },
+  {
+    "id": 63,
+    "text": "cts, Fig.1: The flow of funds in a Ponzi contract.the capital chain will be broken, and later depositors will lose money.When the amount of investment in the Ponzi contract reaches a certain threshold, the cryptocurrency will experience a thunderstorm that eventually affects the normal functioning of the Ethereum- driven industry.Fig.2: Overall framework of the PSDF.4.",
+    "length": 371
+  },
+  {
+    "id": 64,
+    "text": "n industry.Fig.2: Overall framework of the PSDF.4.The Design of PSDF This section provides a comprehensive introduction to the PSDF framework, including the overall process, initial feature construction, data balancing, multi- level feature engineering, and the development of the PonziNet model.4.1.",
+    "length": 300
+  },
+  {
+    "id": 65,
+    "text": "ng, and the development of the PonziNet model.4.1.Overall Process This subsection summarizes the overall process of the PSDF framework, as shown in Figure 2.Specifically, the transaction information and compiled bytecodes are obtained from the Ethereum websitea based on the addresses of smart contracts in the dataset.",
+    "length": 319
+  },
+  {
+    "id": 66,
+    "text": "n the addresses of smart contracts in the dataset.Subsequently, the compiled bytecodes are transformed into opcodes using a disassembler, so the opcode features of each smart contract are constructed by calculating the frequency of opcode calls.Meanwhile, transaction features are extracted from the transaction information as the account features of a smart contract.",
+    "length": 368
+  },
+  {
+    "id": 67,
+    "text": "ation as the account features of a smart contract.Thus, the initial features of each smart contract consist of both code features and account features.To address the class- imbalanced training data, PSDF adopts the SMOTE- Tomek algorithm to deal with the problem, which effectively solves the class- imbalanced training data in detecting Ponzi scheme smart contracts.",
+    "length": 367
+  },
+  {
+    "id": 68,
+    "text": "ng data in detecting Ponzi scheme smart contracts.Next, multi- level feature engineering includes both fine- grained level and coarse- grained level construction to convert initial features into multi- level features of smart contracts.Finally, the PonziNet model consists of two main components: a feature extractor and a LightGBM classifier.",
+    "length": 343
+  },
+  {
+    "id": 69,
+    "text": "ts: a feature extractor and a LightGBM classifier.The feature extractor is used to extract optimal features from multi- level features, and then the optimal features are input to the decision classifier for detecting Ponzi scheme smart contracts.Specifically, this paper constructs a multi- level characterization of smart contracts.",
+    "length": 333
+  },
+  {
+    "id": 70,
+    "text": " multi- level characterization of smart contracts.In order to better capture the Ponzi logic in the multi- level features, we need to extract the optimal features from the multi- level features with a feature extractor.",
+    "length": 219
+  },
+  {
+    "id": 71,
+    "text": "he multi- level features with a feature extractor.After extracting the optimal features, we need to detect the optimal features to get the final classification result, thus, a decision classifier is needed to detect the Ponzi contract.4.2.Initial Feature Construction Given a smart contract dataset $\\mathcal{D}$ , which comes from previous studies 41.",
+    "length": 352
+  },
+  {
+    "id": 72,
+    "text": "athcal{D}$ , which comes from previous studies 41.The ratio of positive to negative samples is approximately 12:1.The dataset contains addresses and labels for smart contracts.In the initial feature construction, a total of 9 opcode features and 7 account features are extracted as the initial data of smart contracts based on the dataset $\\mathcal{D}$ .",
+    "length": 354
+  },
+  {
+    "id": 73,
+    "text": "art contracts based on the dataset $\\mathcal{D}$ .Next, the construction process for these features is described in detail.Table 2: Function of the Opcodes.",
+    "length": 156
+  },
+  {
+    "id": 74,
+    "text": "cribed in detail.Table 2: Function of the Opcodes.OpcodeFunctionGTBlock gas limit of the current block.EPExponential operation.CDLoading data from the input.SDLoading a value from address-specific memory.CRReturning the address of the account.LTBitwise operator.GSReturning the current amount of gas.MDModulus operation.MEStoring a value at the specified address.4.2.1.",
+    "length": 369
+  },
+  {
+    "id": 75,
+    "text": ".MEStoring a value at the specified address.4.2.1.Opcode Features The frequency of calls of opcodes is analyzed in smart contracts according to the previous study.Wang et al.obtained a ranking of their effectiveness in detecting Ponzi scheme smart contracts 35.",
+    "length": 261
+  },
+  {
+    "id": 76,
+    "text": "ness in detecting Ponzi scheme smart contracts 35.Among these opcodes, the 9 most influential opcodes in order for Ponzi scheme detection are GASLIMIT (GT), EXP (EP), CALLDATALOAD (CD), SLOAD (SD), CALLER (CR), LT, GAS (GS), MOD (MD), and MSTORE (ME), where $(\\cdot)$ denotes the short form of the opcode.The specific functions of the opcodes are shown in TABLE 2.",
+    "length": 364
+  },
+  {
+    "id": 77,
+    "text": "fic functions of the opcodes are shown in TABLE 2.Based on the above opcodes, the frequency calls of these 9 opcodes are used as opcode features of our scheme.In other words, PSDF utilizes the above 9 opcode features to conduct Ponzi scheme detection.Fig.3: The distribution proportion of opcode features between normal contracts and Ponzi contracts.",
+    "length": 350
+  },
+  {
+    "id": 78,
+    "text": "ures between normal contracts and Ponzi contracts.Meanwhile, the proportion of 9 opcode features between normal contracts and Ponzi contracts is calculated, as shown in Figure 3.",
+    "length": 178
+  },
+  {
+    "id": 79,
+    "text": "nzi contracts is calculated, as shown in Figure 3.The distribution of opcodes shows that the EP and ME opcodes are more common in the normal contract, while the LT, SD and CR opcodes are more common in the Ponzi contract, which indicates a difference in the frequency of opcode calls between the two classes.",
+    "length": 308
+  },
+  {
+    "id": 80,
+    "text": "frequency of opcode calls between the two classes.This is mainly due to the fact that Ponzi contracts frequently call comparison operators (i.e., LT) and load data from memory (i.e., SD) when there is a new inflow of funds in order to implement the ponzi process.",
+    "length": 263
+  },
+  {
+    "id": 81,
+    "text": " of funds in order to implement the ponzi process.Conversely, a normal contract does not have a fixed number of opcodes to be executed when funds flow into the contract due to the absence of Ponzi logic, which results in the difference in a proportion of opcodes between normal contracts and Ponzi contracts.",
+    "length": 308
+  },
+  {
+    "id": 82,
+    "text": "odes between normal contracts and Ponzi contracts.Meanwhile, unsupervised cluster analysis is performed for the 9 opcode features in the smart contract dataset.Figure 4 shows a clear boundary of the 9 opcode features between normal contracts and Ponzi contracts, which proves that there are significant differences between them.Therefore, the 9 opcode features can be used to detect Ponzi contracts.",
+    "length": 399
+  },
+  {
+    "id": 83,
+    "text": "de features can be used to detect Ponzi contracts.Fig.4: A Scatter plot of opcode features between normal contracts and Ponzi contracts.4.2.2.Account Features Compared to normal contracts, Ponzi contracts have significant differences in account trading characteristics, especially in terms of currency circulation during contract trading.",
+    "length": 338
+  },
+  {
+    "id": 84,
+    "text": "s of currency circulation during contract trading.Through manual review, we can generalize the differences in account characteristics between normal contracts and Ponzi contracts.In Ponzi contracts, only a limited number of early contract investors can earn significant returns, and most of the returns are concentrated among the early investors.",
+    "length": 346
+  },
+  {
+    "id": 85,
+    "text": "eturns are concentrated among the early investors.In particular, the creator of Ponzi contract received the highest rewards.Meanwhile, Ponzi contracts tend to maintain modest balances while distributing investment returns quickly.Therefore, 7 distinct features are obtained from account transactions as account features to identify Ponzi contracts.",
+    "length": 348
+  },
+  {
+    "id": 86,
+    "text": "s as account features to identify Ponzi contracts.Numinv: This feature represents the number of investments in each contract.Assuming that each contract consists of $n$ trades and that each trade is initiated by a transaction account address, the calculation formula of Numinv can be expressed as follows: $$ \\mathrm{Num_inv} = \\sum{i = 1}^{n}a{i},1\\leq i\\leq n.",
+    "length": 362
+  },
+  {
+    "id": 87,
+    "text": "thrm{Num_inv} = \\sum{i = 1}^{n}a{i},1\\leq i\\leq n.\\tag{1} $$ where the number of trade per investment is denoted as 1, so we have $a_{i} = 1$ Num- pay: This feature represents the number of payment trades in each contract.",
+    "length": 222
+  },
+  {
+    "id": 88,
+    "text": "If there are $l$ payment trades per contract, and each trade involves an expense to a specific account address, the calculation of Num- pay can be expressed as follows: $$ \\mathrm{Num_pay} = \\sum{j = 1}^{l}b{i},\\quad 1\\leq j\\leq l, \\tag{2} $$ where the number of trade per payment is denoted as 1, and we have $b_{i} = 1$ Max- pay: The maximum number of expenses from one contract account to another",
+    "length": 399
+  },
+  {
+    "id": 89,
+    "text": "calculation of Num- pay can be expressed as follows: $$ \\mathrm{Num_pay} = \\sum{j = 1}^{l}b{i},\\quad 1\\leq j\\leq l, \\tag{2} $$ where the number of trade per payment is denoted as 1, and we have $b_{i} = 1$ Max- pay: The maximum number of expenses from one contract account to another is defined as Max- pay.",
+    "length": 307
+  },
+  {
+    "id": 90,
+    "text": "Assuming that there are $c$ expenses in each contract, where $d$ expenses into account $S$ then the formula is as follows: $$ \\mathrm{Max_pay} = \\left{ \\begin{array}{ll}d, & \\mathrm{if}~d\\geq \\mathrm{max},\\ \\mathrm{max}, & \\mathrm{if}~d< \\mathrm{max},\\ 0, & \\mathrm{if}~c = 0, \\end{array} \\right.",
+    "length": 296
+  },
+  {
+    "id": 91,
+    "text": "max},\\ 0, & \\mathrm{if}~c = 0, \\end{array} \\right.\\tag{3} $$ where max is the maximum number of expenses pointing to the same account $S$ in addition to $d$ Paidrate: This feature represents the percentage of investors who have received at least one payment.",
+    "length": 258
+  },
+  {
+    "id": 92,
+    "text": " investors who have received at least one payment.It can be calculated as the percentage of the number of investors who received a payment $(N{\\mathrm{received}})$ to the total number of investors involved $(N_{\\mathrm{total}})$ , so it can be expressed as: $$ \\mathrm{P a i d_r a t e} = \\frac{N{\\mathrm{r e c e i v e d}}}{N{\\mathrm{t o t a l}}}.",
+    "length": 346
+  },
+  {
+    "id": 93,
+    "text": "\\mathrm{r e c e i v e d}}}{N{\\mathrm{t o t a l}}}.\\tag{4} $$ Bal: This feature represents the balance of smart contract, indicating the amount of funds held within the contract at a given time point.",
+    "length": 199
+  },
+  {
+    "id": 94,
+    "text": "ds held within the contract at a given time point.It reflects the total value of assets stored in the contract and can be treated as the remaining or available funds after deducting any trades.- Dind: This feature represents the difference between the investment and payment amounts of all investors in the smart contract.",
+    "length": 322
+  },
+  {
+    "id": 95,
+    "text": "nt amounts of all investors in the smart contract.Assuming there are $p$ investors in the contract and $V$ is a vector of length $p$ , where $Mi$ and $Ni$ denote the investment and payment amounts of the $i$ -th investor, respectively.To calculate the difference between investments and payments, each element of the vector $V$ is computed as $V[i] = Ni - Mi$ .",
+    "length": 361
+  },
+  {
+    "id": 96,
+    "text": "f the vector $V$ is computed as $V[i] = Ni - Mi$ .Then Dind is obtained by the following formula: $$ \\mathrm{D_{-}ind} = \\left{ \\begin{array}{ll}0, & p< 3\\ s, & p\\geq 3 \\end{array} \\right., \\tag{5} $$ where $p \\geq 3$ is a limit to ensure that there are a sufficient number of investors in the contract before calculating the difference Dind.",
+    "length": 342
+  },
+  {
+    "id": 97,
+    "text": "e contract before calculating the difference Dind.The variable $s$ represents the skewness of the set ${V{[1]}, V{[2]}, \\ldots , V{[p]}}$ , which is calculated by formula (6).For Ponzi contracts, the value of D_ind is usually negative, indicating that the majority of investors have minimal rewards.",
+    "length": 299
+  },
+  {
+    "id": 98,
+    "text": "at the majority of investors have minimal rewards.$$ s = \\frac{\\sqrt{p(p - 1)}}{p - 2}\\left[\\frac{\\frac{1}{p}\\sum{i = 1}^{p}\\left(V[i] - \\bar{V}\\right)^3}{\\left(\\frac{1}{p}\\sum{i = 1}^{p}\\left(V[i] - \\bar{V}\\right)^2\\right)^{\\frac{3}{2}}}\\right] \\tag{6} $$ Kr: This feature represents the percentage of investors who invest before receiving the reward.",
+    "length": 352
+  },
+  {
+    "id": 99,
+    "text": " investors who invest before receiving the reward.A high Kr indicates that the contract primarily attracts investors who are already aware of the investment opportunity.In the case of the Ponzi scheme, a very high Kr is expected to be observed, as these schemes tend to attract informed investors who are willing to invest before receiving any reward.",
+    "length": 351
+  },
+  {
+    "id": 100,
+    "text": "are willing to invest before receiving any reward.To verify the effectiveness of the above account features, account features from the dataset are extracted for statistical analysis.Figure 5 shows significant differences between Ponzi contracts and normal contracts in the mean of the 7 account features.",
+    "length": 304
+  },
+  {
+    "id": 101,
+    "text": "l contracts in the mean of the 7 account features.This is due to the account features of Ponzi contracts that are different from normal contracts, because as long as there is a new inflow of funds into Ponzi contracts, the funds flow regularly according to the settings of Ponzi contracts, highlighting the statistical differences between Ponzi contracts and normal contracts.",
+    "length": 376
+  },
+  {
+    "id": 102,
+    "text": "nces between Ponzi contracts and normal contracts.Specifically, the mean value of Num_Inv is clearly higher for normal contracts compared to Ponzi contracts.This is because the number of investments in Ponzi schemes can only increase with the addition of new investors, while the number of investments in normal contracts increases because of normal trading.",
+    "length": 358
+  },
+  {
+    "id": 103,
+    "text": "mal contracts increases because of normal trading.In addition, there are differences in the contract balance (Bal) between Ponzi contracts and normal contracts.This is because normal contracts can store funds normally, whereas Ponzi contracts transfer funds to other accounts as soon as they reach a threshold that triggers a financing trade.",
+    "length": 342
+  },
+  {
+    "id": 104,
+    "text": "reach a threshold that triggers a financing trade.The other features also show differences in their statistical distributions.Notably, the mean values of Paidrate, Dind, and Kr are close to 0, but they are still slightly different.",
+    "length": 231
+  },
+  {
+    "id": 105,
+    "text": "close to 0, but they are still slightly different.Therefore, these seven statistical differences in accounts reflect the differences between Ponzi scheme contracts and normal contracts and provide a basis for Ponzi scheme detection.Fig.5: The differences of account features between normal contracts and Ponzi contracts.4.3.",
+    "length": 324
+  },
+  {
+    "id": 106,
+    "text": " between normal contracts and Ponzi contracts.4.3.Data Balance Following the above initial feature construction steps, both account and opcode features about smart contracts are obtained in dataset $\\mathcal{D}$ to form dataset $\\mathcal{Q}$ .",
+    "length": 243
+  },
+  {
+    "id": 107,
+    "text": "aset $\\mathcal{D}$ to form dataset $\\mathcal{Q}$ .Specifically, $\\mathcal{Q}$ is represented as ${(Xi,yi)}{i = 1}^M$ , where $M$ denotes the number of smart contracts in the dataset, $X{i}$ is the feature vector that concatenates the account and opcode features of the $i$ - th contract, and $y{i}$ is the corresponding class label.",
+    "length": 332
+  },
+  {
+    "id": 108,
+    "text": "ract, and $y{i}$ is the corresponding class label.If $y{i} = 1$ , the $i$ - th contract denotes a normal contract, while $y{i} = 0$ denotes that the $i$ - th contract is a Ponzi contract.Let's compose the normal contracts into the dataset $\\mathcal{Q}n$ , and the Ponzi into $\\mathcal{Q}f$ , so $\\mathcal{Q} = \\mathcal{Q}n\\cup \\mathcal{Q}f$ is obtained.",
+    "length": 353
+  },
+  {
+    "id": 109,
+    "text": "l{Q} = \\mathcal{Q}n\\cup \\mathcal{Q}f$ is obtained.In $\\mathcal{Q}n$ and $\\mathcal{Q}f$ , there is a significant difference in the number of contracts in these two classes, i.e., $|\\mathcal{Q}n|\\gg |\\mathcal{Q}_f|$ .Therefore, the $\\mathcal{Q}$ dataset belongs to the class imbalance.To address the class imbalance under dataset $\\mathcal{Q}$ , the SMOTE- Tomek is used to solve the issue.",
+    "length": 388
+  },
+  {
+    "id": 110,
+    "text": "Q}$ , the SMOTE- Tomek is used to solve the issue.Specifically, SMOTE- Tomek combines SMOTE (Synthetic Minority Over- sampling Technique) and Tomek- Link.On the one hand, the mechanism of SMOTE is to generate new minority class samples by inserting between the feature vectors of two neighboring minority classes to enhance minority class.",
+    "length": 339
+  },
+  {
+    "id": 111,
+    "text": "boring minority classes to enhance minority class.On the other hand, the mechanism of Tomek- Link seeks out pairs of instances from different classes that are very close to each other, and removes these pairs.The following describes the detailed process of SMOTE- Tomek.4.3.1.SMOTE SMOTE is an oversampling algorithm that balances the dataset by generating synthetic samples for a minority class.",
+    "length": 396
+  },
+  {
+    "id": 112,
+    "text": "generating synthetic samples for a minority class.Zhang et al.used the algorithm to balance the smart contract dataset to detect Ponzi contracts in their scheme, which effectively improves the detection In the SMOTE-Tomek, the smote algorithm first needs to be executed.",
+    "length": 270
+  },
+  {
+    "id": 113,
+    "text": "The steps of the SMOTE algorithm are described as follows: Step 1: For a normal contract $X{i}$ of dataset $\\mathcal{Q}j$ , SMOTE calculates the Euclidean distance between $X{i}$ and other samples of $\\mathcal{Q}f$ to find the near- neighbor samples $k$ of $X{i}$ Step 2: SMOTE randomly selects one sample from the near- neighbor samples $k$ of $X{i}$ , denoted as $X{j}$ Step3: SMOTE generates a new",
+    "length": 400
+  },
+  {
+    "id": 114,
+    "text": "$X{i}$ of dataset $\\mathcal{Q}j$ , SMOTE calculates the Euclidean distance between $X{i}$ and other samples of $\\mathcal{Q}f$ to find the near- neighbor samples $k$ of $X{i}$ Step 2: SMOTE randomly selects one sample from the near- neighbor samples $k$ of $X{i}$ , denoted as $X{j}$ Step3: SMOTE generates a new sample $X{g}$ by randomly selecting a point between the feature vectors of $X{j}$ and",
+    "length": 397
+  },
+  {
+    "id": 115,
+    "text": "samples of $\\mathcal{Q}f$ to find the near- neighbor samples $k$ of $X{i}$ Step 2: SMOTE randomly selects one sample from the near- neighbor samples $k$ of $X{i}$ , denoted as $X{j}$ Step3: SMOTE generates a new sample $X{g}$ by randomly selecting a point between the feature vectors of $X{j}$ and $X{j}$ using the formula: $$ X{g} = X{i} + \\mathrm{rand}(0,1)*|X{i} - X{j}|.",
+    "length": 374
+  },
+  {
+    "id": 116,
+    "text": "\\tag{7} $$ 4.3.2.Tomek-Links In SMOTE- Tomek, the Tomek- Links algorithm needs to be executed after SMOTE.The Tomek- Links algorithm is used to reduce the overlapping samples between different classes in the dataset 42.",
+    "length": 219
+  },
+  {
+    "id": 117,
+    "text": "mples between different classes in the dataset 42.Specifically, it selects a pair of samples, the one $(X{f})$ from the $\\mathcal{Q}f$ and the other one $(X{n})$ from the $\\mathcal{Q}n$ , and calculates their distance $O(X{f},X{n})$ .",
+    "length": 234
+  },
+  {
+    "id": 118,
+    "text": "$ , and calculates their distance $O(X{f},X{n})$ .If there exists a sample $X{i}$ in the dataset $\\mathcal{Q}$ , regardless of its class, that satisfies $O(X{f},X{i})< O(X{f},X{n})$ or $O(X{n},X{i})< O(X{f},X{n})$ , this indicates that $X{f}$ and $X{n}$ do not overlap.However, if a sample $X{i}$ does not exist, $X{f}$ and $X{n}$ form a Tomek pair, indicating that the samples overlap.",
+    "length": 386
+  },
+  {
+    "id": 119,
+    "text": "a Tomek pair, indicating that the samples overlap.Finally, samples of this Tomek pair are removed from the dataset $\\mathcal{Q}$ After applying the SMOTE- Tomek algorithm to address the class imbalance, the dataset $\\mathcal{Q}1$ is obtained, which means that the $\\mathcal{Q}1$ is class- balanced.",
+    "length": 298
+  },
+  {
+    "id": 120,
+    "text": " means that the $\\mathcal{Q}1$ is class- balanced.To further improve the feature representation of smart contracts, multi- level feature engineering is performed on the $\\mathcal{Q}_1$ dataset.4.4.Multi-level Feature Engineering Multi- level feature engineering is the process of capturing multi- level features from the feature vector $X_{i}$ .",
+    "length": 345
+  },
+  {
+    "id": 121,
+    "text": "- level features from the feature vector $X_{i}$ .The multi- level features are divided into fine- grained features and coarse- grained features.The fine- grained features provide detailed properties of a smart contract, while the coarse- grained features reflect the characteristics of a smart contract.",
+    "length": 304
+  },
+  {
+    "id": 122,
+    "text": "s reflect the characteristics of a smart contract.Here, \"property\" refers to specific and detailed attributes of a smart contract, whereas \"characteristic\" pertains to overall traits that define a smart contract's nature.",
+    "length": 221
+  },
+  {
+    "id": 123,
+    "text": " traits that define a smart contract's nature.To conveniently describe the multi- level engineering process, $\\mathcal{Q}_1$ is denoted as: $$ \\mathcal{Q}1 = {(X1,y1),(X2,y2),\\ldots ,(Xn,y_n)} , $$ where $X{i} = (A{i},B{i})$ denotes the feature vector of smart contract, $A{i}$ denotes the account features, $B{i}$ denotes the opcode features, and $y{i}$ denotes the label of $i$ - th smart contract.",
+    "length": 400
+  },
+  {
+    "id": 124,
+    "text": "{i}$ denotes the label of $i$ - th smart contract.Thus, the set of account features is denoted as $\\mathcal{A} = {A1,A2,\\ldots ,An}$ , the set of opcode features is denoted as $\\mathcal{B} = {B1,B2,\\ldots ,Bn}$ , and the set of feature vectors is denoted as $\\mathcal{X} = {X1,X2,\\ldots ,X_n}$ .4.4.1.",
+    "length": 301
+  },
+  {
+    "id": 125,
+    "text": "ted as $\\mathcal{X} = {X1,X2,\\ldots ,X_n}$ .4.4.1.Fine-grained Features Construction In the set $\\mathcal{X}$ , three specific features, namely Numinv, NumPay, and Dind, have significantly larger value ranges compared to the other account features.",
+    "length": 248
+  },
+  {
+    "id": 126,
+    "text": "lue ranges compared to the other account features.When using $\\mathcal{X}$ for Ponzi scheme detection, differences in feature magnitude can mask the importance of other features, which affect the performance of the model.To address this issue, the $\\mathbb{Z}$ score (standard score) normalization method is adopted to handle the features.",
+    "length": 339
+  },
+  {
+    "id": 127,
+    "text": "lization method is adopted to handle the features.By calculating the $\\mathbb{Z}$ score for each feature, the feature values are converted into normalized units based on their respective means and standard deviations.",
+    "length": 217
+  },
+  {
+    "id": 128,
+    "text": "on their respective means and standard deviations.So $F{i} =$ normalization $(X{i})$ can be obtained, where $F{i} = (A{i}^{\\prime},B{i}^{\\prime})$ denotes the normalized feature vector, while $A{i}^{\\prime}$ and $B{i}^{\\prime}$ denote the normalized account features and opcode features, respectively.",
+    "length": 301
+  },
+  {
+    "id": 129,
+    "text": "ccount features and opcode features, respectively.After the normalization process, the feature vector $F{i}$ consists of normalized account features and opcode features, which is defined as the fine- grained features.",
+    "length": 217
+  },
+  {
+    "id": 130,
+    "text": "s, which is defined as the fine- grained features.Meanwhile, the dataset $\\Omega2$ from $\\Omega1$ is obtained, where $\\mathcal{Q}2 = {(F1,y1),(F2,y2),\\ldots ,(Fn,yn)}$ To verify the effectiveness of fine- grained features, a simple unsupervised learning clustering method is used based on dataset $\\Omega_2$ to view boundaries between normal contracts and Ponzi contracts.",
+    "length": 372
+  },
+  {
+    "id": 131,
+    "text": "ries between normal contracts and Ponzi contracts.The feature boundary is shown in Figure 6.We can observe that the boundary between Ponzi contracts and normal contracts is very clear, which further implies that there is a large feature difference between the different classes.Therefore, fine- grained features are available to detect Ponzi contracts.Fig.",
+    "length": 356
+  },
+  {
+    "id": 132,
+    "text": "tures are available to detect Ponzi contracts.Fig.6: The scatter plot of fine-grained features between normal contracts and Ponzi contracts.4.4.2.Coarse-grained Features Construction The initial features of the $i$ - th smart contract consist of account features $A{i}$ and opcode features $B{i}$ , which represents two different perspectives.",
+    "length": 343
+  },
+  {
+    "id": 133,
+    "text": "i}$ , which represents two different perspectives.The smart contract is represented by considering the account features as a whole and the opcode features as another whole.To this end, the account features are compressed as one integral feature and the opcode features as another integral feature.",
+    "length": 297
+  },
+  {
+    "id": 134,
+    "text": "d the opcode features as another integral feature.Here, the $t$ - distribution stochastic nearest neighbor embedding ( $t$ - SNE) method is adopted to map the high- dimensional data to the low- dimensional space 43.Therefore, the $d{i} = t\\text{- SNE} (A{i})$ and $h{i} = t\\text{- SNE} (B{i})$ are used to construct the coarse- grained feature of smart contracts.",
+    "length": 363
+  },
+  {
+    "id": 135,
+    "text": "ct the coarse- grained feature of smart contracts.Given $G{i} = (d{i},h{i})$ as coarse- grained features of $i$ - th smart contract, where $d{i}$ represents the coarse- grained account feature (Coarse- A) of $i$ - th smart contract and $h_{i}$ represents the coarse- grained opcode feature (Coarse- O) of $i$ - th smart contract.",
+    "length": 329
+  },
+  {
+    "id": 136,
+    "text": "de feature (Coarse- O) of $i$ - th smart contract.The fine- grained features $F{i}$ and the coarse- grained features $G{i}$ are concatenated to form the multi- level features $T_{i}$ , $$ \\mathcal{Q}3 = {(T1,y1),(T2,y2),\\ldots ,(Tn,y_n)} , $$ where $T{i} = (F{i},G_{i})$ , and $T$ is finally input to the PonziNet model.Fig.7: Information gain analysis of multi-level features.4.4.3.",
+    "length": 383
+  },
+  {
+    "id": 137,
+    "text": "ation gain analysis of multi-level features.4.4.3.Analysis of Multi-level Features Information gain is utilized to validate the effectiveness of multi- level features $T$ for detecting Ponzi scheme smart contracts.Information gain is a commonly used feature selection method that measures the contribution of features to classification tasks 44.",
+    "length": 345
+  },
+  {
+    "id": 138,
+    "text": "ntribution of features to classification tasks 44.If the multilevel features have high information gain, it shows their important role in detecting Ponzi scheme smart contracts and verifies the rationality and effectiveness of multi- level features.",
+    "length": 249
+  },
+  {
+    "id": 139,
+    "text": "nality and effectiveness of multi- level features.The result is shown in Figure 7, where coarse- grained features rank higher in terms of information gain, indicating that they are most capable of capturing the features of Ponzi contracts.In addition, SD and LT also rank higher in terms of information gain, indicating that they contribute to detect Ponzi scheme smart contracts.",
+    "length": 380
+  },
+  {
+    "id": 140,
+    "text": "contribute to detect Ponzi scheme smart contracts.The information gain analysis confirms the effectiveness of multi- level features in PSDF.4.5.The Design of PonziNet This paper designs a PonziNet model in PSDF, the model combines CNN and LightGBM algorithms with the architecture shown in Figure 8.",
+    "length": 299
+  },
+  {
+    "id": 141,
+    "text": "lgorithms with the architecture shown in Figure 8.Specifically, PonziNet uses CNN as a feature extractor to extract optimal features from multi- level features.LightGBM is then used as a classifier to output the final result.Therefore, PonziNet consists of a feature extractor and a decision classifier.",
+    "length": 303
+  },
+  {
+    "id": 142,
+    "text": " of a feature extractor and a decision classifier.It is worth noting that the feature extractor and the decision classification are two separately trained models.Therefore, the task of detecting Ponzi contracts is defined as a binary classification problem.Fig.8: PonziNet Model Architecture.4.5.1.",
+    "length": 298
+  },
+  {
+    "id": 143,
+    "text": " problem.Fig.8: PonziNet Model Architecture.4.5.1.Feature Extractor In the feature extractor, the optimal features are extracted from the multi- level features.Specifically, the feature vector $T{i} = (F{i},G{i})$ in dataset $Q{3}$ is divided into $F{i}$ and $G{i}$ which are padded separately in order to improve the subsequent convolution operation.",
+    "length": 351
+  },
+  {
+    "id": 144,
+    "text": "r to improve the subsequent convolution operation.So, the $F{i}^{\\prime} = pad(F{i})$ and $G{i}^{\\prime} = pad(G{i})$ are obtained, where $pad()$ denotes padding operation.After the padding step, the padded features $F{i}^{\\prime}$ and $G{i}^{\\prime}$ , are concatenated to form the matrix $M{i}$ to merge fine- grained and coarse- grained features.",
+    "length": 349
+  },
+  {
+    "id": 145,
+    "text": " merge fine- grained and coarse- grained features.The $M{i}$ contains the multilevel features of the $i$ th smart contract.Next, the $M_{i}$ is input to CNN.Since $M{i}$ is a single- channel feature map of dimension, each filter in CNN uses a convolution kernel of size $k \\times 1$ to perform a single- channel convolution.",
+    "length": 324
+  },
+  {
+    "id": 146,
+    "text": "times 1$ to perform a single- channel convolution.To extract key features, $J$ filters of the same size are convolved with the matrix $M{i}$ .",
+    "length": 142
+  },
+  {
+    "id": 147,
+    "text": "Formula (8) represents the convolutional feature extraction computation: $$ C{\\mathrm{out}}[i] = f\\left(\\sum{j = 0}^{j = (k - 1)}M[z + j]\\times W[j] + b\\right), \\tag{8} $$ where $C_\\mathrm{out}$ represents the output feature map obtained from the convolutional operation, $\\mathcal{Z}$ denotes the position in the output feature map $(0\\leq z\\leq J)$ ,and $j$ represents the index of the convolution",
+    "length": 399
+  },
+  {
+    "id": 148,
+    "text": "computation: $$ C{\\mathrm{out}}[i] = f\\left(\\sum{j = 0}^{j = (k - 1)}M[z + j]\\times W[j] + b\\right), \\tag{8} $$ where $C_\\mathrm{out}$ represents the output feature map obtained from the convolutional operation, $\\mathcal{Z}$ denotes the position in the output feature map $(0\\leq z\\leq J)$ ,and $j$ represents the index of the convolution kernel ranging from O to $(k - 1)$ .",
+    "length": 376
+  },
+  {
+    "id": 149,
+    "text": "The input feature $M$ is convolved with learnable weights $W$ , and the resulting feature map is passed through an activation function $f(\\cdot)$ .Additionally, a bias term $b$ is added to the convolution.So $Y = CNN(M)$ is obtained, where $CNN(\\cdot)$ denotes the whole convolution process, where $Y$ can be interpreted as the high- level feature.",
+    "length": 348
+  },
+  {
+    "id": 150,
+    "text": "$Y$ can be interpreted as the high- level feature.The Softmax layer performs a softmax operation on the output $Y$ of the convolution layer, and converts the value to the probability of its corresponding class, where $Y = (y1', y2', \\dots , y_q')$ .",
+    "length": 249
+  },
+  {
+    "id": 151,
+    "text": "The softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$",
+    "length": 393
+  },
+  {
+    "id": 152,
+    "text": "The softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$",
+    "length": 393
+  },
+  {
+    "id": 153,
+    "text": "denotes",
+    "length": 7
+  },
+  {
+    "id": 154,
+    "text": "The softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$",
+    "length": 393
+  },
+  {
+    "id": 155,
+    "text": "denotes probability",
+    "length": 19
+  },
+  {
+    "id": 156,
+    "text": "The softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$",
+    "length": 393
+  },
+  {
+    "id": 157,
+    "text": "denotes probability when",
+    "length": 24
+  },
+  {
+    "id": 158,
+    "text": "The softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$",
+    "length": 393
+  },
+  {
+    "id": 159,
+    "text": "denotes probability when the",
+    "length": 28
+  },
+  {
+    "id": 160,
+    "text": "softmax formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes",
+    "length": 397
+  },
+  {
+    "id": 161,
+    "text": "probability when the sample",
+    "length": 27
+  },
+  {
+    "id": 162,
+    "text": "formula is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes",
+    "length": 389
+  },
+  {
+    "id": 163,
+    "text": "probability when the sample belongs",
+    "length": 35
+  },
+  {
+    "id": 164,
+    "text": "is as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when",
+    "length": 398
+  },
+  {
+    "id": 165,
+    "text": "the sample belongs to",
+    "length": 21
+  },
+  {
+    "id": 166,
+    "text": "as follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when the",
+    "length": 399
+  },
+  {
+    "id": 167,
+    "text": "sample belongs to the",
+    "length": 21
+  },
+  {
+    "id": 168,
+    "text": "follows: $$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when the",
+    "length": 396
+  },
+  {
+    "id": 169,
+    "text": "sample belongs to the $q$",
+    "length": 25
+  },
+  {
+    "id": 170,
+    "text": "$$ Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when the sample",
+    "length": 394
+  },
+  {
+    "id": 171,
+    "text": "belongs to the $q$ -",
+    "length": 20
+  },
+  {
+    "id": 172,
+    "text": "Y^{\\prime} = \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when the sample belongs",
+    "length": 399
+  },
+  {
+    "id": 173,
+    "text": "to the $q$ - th",
+    "length": 15
+  },
+  {
+    "id": 174,
+    "text": "= \\mathit{Sofmax}(Y) = \\left(\\frac{e^{y1^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\dots \\frac{e^{yq^{\\prime}}}{\\sum{q = 1}^{R}e^{yq^{\\prime}}}\\right) \\tag{9} $$ where $Y'$ denotes the probability set that the sample corresponds to each class, $R$ denotes the number of sample classes in the task, and $\\frac{e^{yq'}}{\\sum{q = 1}^{R} e^{y_q'}}$ denotes probability when the sample belongs to the $q$",
+    "length": 399
+  },
+  {
+    "id": 175,
+    "text": "- th class.",
+    "length": 11
+  },
+  {
+    "id": 176,
+    "text": "During the training process, our goal is to minimize the following objective function: $$ Obj(\\theta) = L_{e}(\\theta) + \\Omega (\\theta), \\tag{10} $$ where $L{e}(\\theta)$ is the loss function of the feature extractor, which is used to measure how well the model fits the training data, and $\\Omega (\\theta)$ is the regulation, which is used to measure the complexity of the learned model.",
+    "length": 387
+  },
+  {
+    "id": 177,
+    "text": "ed to measure the complexity of the learned model.Minimizing the $Obj(\\theta)$ means minimizing the $L{e}(\\theta)$ and $\\Omega (\\theta)$ at the same time, which can get the model out of the state of underfitting and optimize the regulation term for avoiding overfitting the model.The loss function plays a crucial role in the performance of the model, it should usually be chosen explicitly to apply.",
+    "length": 400
+  },
+  {
+    "id": 178,
+    "text": ", it should usually be chosen explicitly to apply.Here, considering that the model is a binary classification, the cross- entropy loss function is chosen.This is because the cross- entropy loss function effectively penalizes those misclassified samples and pushes the model to adjust in the right direction.",
+    "length": 307
+  },
+  {
+    "id": 179,
+    "text": "pushes the model to adjust in the right direction.The function is shown in formula (11), which $l_{q}$ value is 1 when the sample belongs to $q$ - th class, otherwise it is 0.",
+    "length": 175
+  },
+  {
+    "id": 180,
+    "text": "$$ L{e}(\\theta) = -\\sum l{q}\\cdot \\log \\frac{e^{y{q}^{\\prime}}}{\\sum{q = 1}^{R}e^{y_{q}^{\\prime}}} \\tag{11} $$ The most basic regularization method is to add a penalty to the original loss function, and the $L_{2}$ norm is used as follows: $$ \\Omega (\\theta) = \\eta \\| \\pmb {m}\\| ^2, \\tag{12} $$ where $\\eta$ is importance weight and $$ \\| \\pmb {m}\\| ^2\\equiv \\pmb {m}^T\\pmb {m} = m0^2 +m1^2 +\\ldots",
+    "length": 399
+  },
+  {
+    "id": 181,
+    "text": "basic regularization method is to add a penalty to the original loss function, and the $L_{2}$ norm is used as follows: $$ \\Omega (\\theta) = \\eta \\| \\pmb {m}\\| ^2, \\tag{12} $$ where $\\eta$ is importance weight and $$ \\| \\pmb {m}\\| ^2\\equiv \\pmb {m}^T\\pmb {m} = m0^2 +m1^2 +\\ldots +m_K^2, \\tag{13} $$ which $m_{K}$ denotes the $K$ - th weight parameter of the model.",
+    "length": 365
+  },
+  {
+    "id": 182,
+    "text": "After training the feature extractor, the model is saved.After the feature extractor is trained, the trained model is used to extract the optimal features from the multi- level features in order to classify them in the decision classifier.Specifically, the dataset $\\mathcal{Q}3$ is input into the feature extractor.",
+    "length": 316
+  },
+  {
+    "id": 183,
+    "text": "\\mathcal{Q}3$ is input into the feature extractor.At this point, the optimal features $H$ of the previous layer of Softmax in the feature extractor are obtained, and the dataset $\\mathcal{Q}4$ is obtained from $\\mathcal{Q}3$ , where $\\mathcal{Q}4 = {(H1,y1),(H2,y2),\\ldots ,(Hn,yn)}$ for training the decision classifier.4.5.2.",
+    "length": 327
+  },
+  {
+    "id": 184,
+    "text": ",yn)}$ for training the decision classifier.4.5.2.Decision Classifier In the decision classifier, the $\\mathcal{Q}_4$ dataset needs to be categorized to get the final detection result.Specifically, the decision classifier uses a machine learning algorithm called LightGBM, which is described next.",
+    "length": 297
+  },
+  {
+    "id": 185,
+    "text": "lgorithm called LightGBM, which is described next.LightGBM is now extensively used in many different domains (e.g., classification, regression and ranking) 45.The LightGBM algorithm combines weak models into strong ones using an iterative process.More specifically, given the dataset $\\mathcal{Q}_4$ , PSDF adopts the LightGBM algorithm to train decision classifier.",
+    "length": 366
+  },
+  {
+    "id": 186,
+    "text": "e LightGBM algorithm to train decision classifier.The difference with the traditional techniques (e.g., XGBoost and GBDT) is that Light GBM adopts a vertical tree growth approach instead of the horizontal tree growth used by other algorithms.This unique characteristic enables LightGBM to efficiently handle large- scale data and features, making it an effective method of data processing.",
+    "length": 389
+  },
+  {
+    "id": 187,
+    "text": " making it an effective method of data processing.After the decision classifier is trained, the parameters of the classifier are saved for evaluating our solution.Finally, Algorithm 2 summarizes the PonziNet model.5.Experiments The dataset 41 is used from the website, which contains 131 Ponzi contracts and 1513 normal contracts.",
+    "length": 330
+  },
+  {
+    "id": 188,
+    "text": "ins 131 Ponzi contracts and 1513 normal contracts.It crawls data from Ethereum.io according to the contract address, so the dataset provides us with smart contract addresses and labels.The additional smart contract information needs to be obtained from the public website.",
+    "length": 272
+  },
+  {
+    "id": 189,
+    "text": "tion needs to be obtained from the public website.After the dataset is balanced with the SMOTE- Tomek algorithm, $70\\%$ of the dataset is extracted as the train set, and the remaining $30\\%$ is extracted as the test set.The experiments analyses of PSDF are performed below.5.1.",
+    "length": 277
+  },
+  {
+    "id": 190,
+    "text": "eriments analyses of PSDF are performed below.5.1.Experimental Environment To conduct accurate and reproducible experiments, it is essential to provide a comprehensive description of the experimental environment.Table 3 shows the detailed configuration in our study.The Torch library is employed for constructing the feature extractor.",
+    "length": 335
+  },
+  {
+    "id": 191,
+    "text": "s employed for constructing the feature extractor.Simultaneously, the LightGBM library is utilized to implement the decision classifier, obtaining the corresponding code from https://github.com/microsoft/LightGBM.Table 3: Experiment Environment.",
+    "length": 245
+  },
+  {
+    "id": 192,
+    "text": "icrosoft/LightGBM.Table 3: Experiment Environment.ComponentConfigurationCPUIntel Core i7-8700K @ 3.70GHzGPUNVIDIA GeForce RTX 1060Memory16 GB DDR4 RAMStorage1 TB SSDOperating SystemWindows 10Python3.11.5Torch2.1.0+cu118CUDA12.2 5.2.",
+    "length": 232
+  },
+  {
+    "id": 193,
+    "text": "indows 10Python3.11.5Torch2.1.0+cu118CUDA12.2 5.2.Experimental Metrics To accurately evaluate the performance of the model and to facilitate comparison with other Ponzi contract detection methods, we use metrics such as accuracy, precision, recall and F- score for evaluation.Specifically, Accuracy and Precision are the most commonly used assessment measures for classification.",
+    "length": 379
+  },
+  {
+    "id": 194,
+    "text": "monly used assessment measures for classification.The Recall is critical for many application scenarios, especially in demanding areas such as fraud detection.The F1- score is a metric that balances precision and recall.With the higher of the above indicators, it means that the performance of our scheme is better and the detection results are more accurate.",
+    "length": 359
+  },
+  {
+    "id": 195,
+    "text": "etter and the detection results are more accurate.On the contrary, it means the worse the detection results.The objective of our scheme is to make these four evaluation metrics as high as possible.The specific definitions are as follows.",
+    "length": 237
+  },
+  {
+    "id": 196,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 197,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 198,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision}",
+    "length": 65
+  },
+  {
+    "id": 199,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 200,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision} +",
+    "length": 67
+  },
+  {
+    "id": 201,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 202,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision} + \\mathrm{recall}}",
+    "length": 84
+  },
+  {
+    "id": 203,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 204,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision} + \\mathrm{recall}} \\tag{17}",
+    "length": 93
+  },
+  {
+    "id": 205,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 206,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision} + \\mathrm{recall}} \\tag{17} $$",
+    "length": 96
+  },
+  {
+    "id": 207,
+    "text": "$$ \\mathrm{Accuracy} = \\frac{\\mathrm{true positive} + \\mathrm{true negative}}{\\mathrm{all}} \\tag{14} $$ $$ \\mathrm{Precision} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false positive}} \\tag{15} $$ $$ \\mathrm{Recall} = \\frac{\\mathrm{true positive}}{\\mathrm{true positive} + \\mathrm{false negative}} \\tag{16} $$ $$ \\mathrm{F1 - score} = 2\\times",
+    "length": 365
+  },
+  {
+    "id": 208,
+    "text": "\\frac{\\mathrm{precision}\\times\\mathrm{recall}}{\\mathrm{precision} + \\mathrm{recall}} \\tag{17} $$ 5.3.",
+    "length": 101
+  },
+  {
+    "id": 209,
+    "text": "Experimental Parameter Setting In the PSDF, the input to the feature extractor of PonziNet are coarse- grained level features and fine- grained level features.Next, the output dimension of each layer and the number of trainable parameters are set in the feature extractor, as shown in Table.4.",
+    "length": 293
+  },
+  {
+    "id": 210,
+    "text": "set in the feature extractor, as shown in Table.4.Finally, the effect of hyper parameters (epoch, batch size and test set ratio) in the feature extractor on the experimental results is explored in the following experiments.Table 4: Feature Extractor Structure and Number of Trainable Parameters.",
+    "length": 295
+  },
+  {
+    "id": 211,
+    "text": "ctor Structure and Number of Trainable Parameters.Layer (type:depth-idx)Output ShapeParam #Linear: 1 – 11 × 1 × 515Linear: 1 – 21 × 1 × 20340Linear: 1 – 31 × 1 × 25-Conv1d: 2 – 1- × 1 × 254ReLU: 2 – 21 × 1 × 25-Conv1d: 2 – 31 × 1 × 254ReLU: 2 – 41 × 1 × 25-Linear: 1 – 41 × 8208Linear: 1 – 51 × 218 5.3.1.",
+    "length": 305
+  },
+  {
+    "id": 212,
+    "text": "5-Linear: 1 – 41 × 8208Linear: 1 – 51 × 218 5.3.1.The Impact of epochs for PSDF We evaluate the performance of PSDF by adjusting the parameters of PonziNet.In PonziNet, an epoch represents one training for each sample in the train set.However, a single epoch of the dataset may not be sufficient for effective training.",
+    "length": 319
+  },
+  {
+    "id": 213,
+    "text": "aset may not be sufficient for effective training.Therefore, multiple iterations are required to improve the performance of the model.In addition, as the epochs increase, the model state goes from underfitting to overfitting.Thus, choosing the appropriate number of epochs is crucial to obtain the best training results.",
+    "length": 320
+  },
+  {
+    "id": 214,
+    "text": "hs is crucial to obtain the best training results.In our experiments, we set the learning rate to 0.001 and assigned $20\\%$ of the data to the test set with a fixed batch size of 20 and all settings unchanged except epoch.We start training from the 20- th epoch and increased the epoch value by 20 in each subsequent experiment.",
+    "length": 328
+  },
+  {
+    "id": 215,
+    "text": "e epoch value by 20 in each subsequent experiment.We conduct 11 experiments with different epochs, each experiment repeats 10 times.The average accuracy is calculated as the final result, as shown in Figure 9.The experimental results show that the accuracy of the test set gradually improves as the number of epochs increases.",
+    "length": 326
+  },
+  {
+    "id": 216,
+    "text": "dually improves as the number of epochs increases.However, after reaching 60 epochs, the accuracy of the test set starts to drop.For the phenomenon of accuracy rising and then suddenly going down, this is because too few epochs can lead to an underfitting of the model to the highest effect.However, too much epoch can lead to overfitting of the model.",
+    "length": 352
+  },
+  {
+    "id": 217,
+    "text": "o much epoch can lead to overfitting of the model.As a result, the experimental results appear to rise and then go down.Fig.9: The impact of epoch on accuracy in PSDF.To strike a balance between model performance and overfitting, we conclude that 60 epochs is the optimal value.This decision aims to achieve a satisfying level of accuracy while minimizing the negative performance of overfitting.",
+    "length": 396
+  },
+  {
+    "id": 218,
+    "text": "inimizing the negative performance of overfitting.5.3.2.The Impact of Batch Size for PSDF In our experiments, we analyze the effect of batch size on PSDF.Choosing an appropriate batch size is crucial because it affects both the model's convergence and computational efficiency.",
+    "length": 277
+  },
+  {
+    "id": 219,
+    "text": " model's convergence and computational efficiency.This is because different batch sizes are one of the hyperparameters that affect both the performance of the model and the training rate, so we test the accuracy and training time of the model.To conduct our experiments, we keep a fixed test set ratio of $20\\%$ , set the number of training epochs to 60, and use a learning rate of 0.001.",
+    "length": 388
+  },
+  {
+    "id": 220,
+    "text": "ng epochs to 60, and use a learning rate of 0.001.We vary the batch size from 1, 32, 64, 128, 256, to 512.Figure 10 shows the training time and test set accuracy for different batch sizes.From the experimental results, we find that batch sizes larger than 64 decrease the accuracy of the PSDF.",
+    "length": 293
+  },
+  {
+    "id": 221,
+    "text": " larger than 64 decrease the accuracy of the PSDF.This is because larger batch sizes cause the scheme to converge more slowly and skip smaller local minima, which affects the accuracy of the scheme.Specifically, if the batch size is too small, the training time of the model is long, the training efficiency is low, and it also makes the model difficult to converge, which leads to underfitting.",
+    "length": 395
+  },
+  {
+    "id": 222,
+    "text": "ifficult to converge, which leads to underfitting.On the contrary, if the batch size is too large, it can reduce the training time, but it can cause the model generalization ability to decrease.When the batch size exceeds 32, the time required for training remains essentially the same.Therefore, we set the batch size to 64, which strikes a balance between training time and model accuracy.Fig.",
+    "length": 395
+  },
+  {
+    "id": 223,
+    "text": "ance between training time and model accuracy.Fig.10: The impact of batch size on accuracy for PSDF.5.3.3.The Impact of Test set Ratio for PSDF In PonziNet models, the choice of test set ratio plays a crucial role in evaluating the performance of the scheme to generalize to unknown data.In this experiment, we analyze the effects of different test set ratios on the parameters of PSDF.",
+    "length": 386
+  },
+  {
+    "id": 224,
+    "text": "fferent test set ratios on the parameters of PSDF.We set the learning rate to 0.001, the batch size fixed to 64, and the epoch set to 60.We evaluate the performance of the model by setting different test set ratios (including $10\\%$ , $20\\%$ , $30\\%$ , and $40\\%$ ).The accuracy of PSDF is shown in Figure 11.With an increasing ratio of testset, the accuracy of PSDF decreases.",
+    "length": 377
+  },
+  {
+    "id": 225,
+    "text": " ratio of testset, the accuracy of PSDF decreases.This decrease can be attributed to the reduced availability of training data, which limits the ability of the model to learn and capture the underlying patterns and complexity of the Ponzi contract.The phenomenon emphasizes the importance of having sufficient training data.",
+    "length": 324
+  },
+  {
+    "id": 226,
+    "text": "the importance of having sufficient training data.Sufficient training data allows the model to learn from a wide variety of Ponzi contract examples, thereby improving its understanding associated with such contracts.With a larger train set, the model can better generalize and make informed predictions about unknown data, improving its overall accuracy.",
+    "length": 354
+  },
+  {
+    "id": 227,
+    "text": "bout unknown data, improving its overall accuracy.Based on these findings, we set the test set ratio to $30\\%$ .This selection strikes a balance between ensuring an adequate train set and reserving enough data for testing.All in all, after extensive experimental exploration, we finally set the epoch to 60, the batch size to 64, and the test set ratio to $30\\%$ .Fig.",
+    "length": 368
+  },
+  {
+    "id": 228,
+    "text": "size to 64, and the test set ratio to $30\\%$ .Fig.11: The impact of test set ratio for PSDF.5.4.Experiment Comparison 5.4.1.Comparison with Other Schemes The experimental results highlight the effectiveness of different Ponzi scheme detection methods, and are evaluated by performance metrics such as accuracy, precision, recall, and F1- score.",
+    "length": 344
+  },
+  {
+    "id": 229,
+    "text": "uch as accuracy, precision, recall, and F1- score.In fraud detection, the recall should be increased as possible while maintaining precision.The main reason is that the raw dataset is out of proportion between positive and negative.In addition, XGBoost, LightGBM, RF, SVM, LR, and KNN are baseline methods, which do not do anything with the data.",
+    "length": 346
+  },
+  {
+    "id": 230,
+    "text": "e methods, which do not do anything with the data.We also compare with state- of- the art methods, such as SPP- CNN $^{34}$ , PD- SECR $^{36}$ , and SCSGuard $^{33}$ and Scheme $^{46}$ .The comparison results are shown in Table 5.Specifically, we can observe that common machine learning methods (i.e., baseline methods) have high accuracy, but the other three metrics are very low.",
+    "length": 382
+  },
+  {
+    "id": 231,
+    "text": "ccuracy, but the other three metrics are very low.This is due to the fact that these baseline methods do not perform data balancing, leading to the phenomenon of model bias.The SPP- CNN $^{34}$ , PD- SECR $^{36}$ , SC- SGuard, and Scheme $^{46}$ methods also show good performance in Ponzi contract detection.",
+    "length": 309
+  },
+  {
+    "id": 232,
+    "text": "show good performance in Ponzi contract detection.They effectively mitigate the class imbalance problem in detection by using data balancing techniques.Mitigating the effects of imbalanced class distributions can improve their detection capabilities.However, these schemes only use fine- grained opcode features as data for model training.",
+    "length": 339
+  },
+  {
+    "id": 233,
+    "text": "rained opcode features as data for model training.In addition, PSDF shows superior performance in all evaluation metrics.This is due to the fact that we construct the multi- level features of smart contracts that can be captured from both fine- grained and coarse- grained perspectives.",
+    "length": 286
+  },
+  {
+    "id": 234,
+    "text": "th fine- grained and coarse- grained perspectives.The high F1- score in PSDF indicates its strong ability to accurately identify Ponzi schemes, making it a robust and reliable method for Ponzi scheme detection.Table 5: Detection Performance among Different Scheme.",
+    "length": 264
+  },
+  {
+    "id": 235,
+    "text": "e 5: Detection Performance among Different Scheme.ModelData balanceAccuracyPrecisionRecallF1-scoreXGBoostNo96.780.069.674.4LightGBMNo96.988.265.275.0RFNo97.388.969.678.0SVMNo93.699.318.616.0LRNo93.050.043.546.5KNNNo92.747.739.342.8SPP-CNN 34Yes95.898.293.895.9PD-SECR 36Yes97.996.799.398.1SCSGuard 33No92.296.397.897.1Scheme 46Yes96.092.394.195.8PSDFYes98.399.197.898.3 5.4.2.",
+    "length": 376
+  },
+  {
+    "id": 236,
+    "text": "6Yes96.092.394.195.8PSDFYes98.399.197.898.3 5.4.2.Effectiveness Analysis of Multi-level Feature To evaluate the effectiveness of multi- level feature on Ponzi scheme detection, we set up two sets of experiments with the PSDF.",
+    "length": 225
+  },
+  {
+    "id": 237,
+    "text": ", we set up two sets of experiments with the PSDF.In the first set of experiments, fine- grained features are used to input the PonziNet, and in the second set of experiments, multi- grained features are used to input the PonziNet.The results, as shown in Fig.12, which clearly demonstrate the effectiveness of multi- level features.",
+    "length": 333
+  },
+  {
+    "id": 238,
+    "text": "strate the effectiveness of multi- level features.The second set of experiments achieves an accuracy rate $0.8\\%$ higher than the first set, highlighting the significant contribution of multi- level features in improving the performance of PSDF.",
+    "length": 245
+  },
+  {
+    "id": 239,
+    "text": "vel features in improving the performance of PSDF.By merging features at different levels, PSDF allows for a more comprehensive understanding of the data, capturing the attributes and overall characteristics of smart contracts.",
+    "length": 227
+  },
+  {
+    "id": 240,
+    "text": "es and overall characteristics of smart contracts.Fine- grained level features provide a more granular analysis of smart contracts and better represent the potential characteristics of smart contracts associated with Ponzi schemes.Coarse- grained level features capture the characteristics of smart contracts as a whole, allowing the model to capture overall patterns in the data.5.4.3.",
+    "length": 386
+  },
+  {
+    "id": 241,
+    "text": "del to capture overall patterns in the data.5.4.3.The Impact of SMOTE-Tomek Algorithm for PSDF.In our scheme, we use the SMOTE- Tomek algorithm to balance the classes of the dataset for mitigating model bias.In order to evaluate the impact of SMOTE- Tomek on PSDF, we conducted experiments with four scenarios, namely, raw data, SMOTE, Tomek- links, and Fig.",
+    "length": 358
+  },
+  {
+    "id": 242,
+    "text": "s, namely, raw data, SMOTE, Tomek- links, and Fig.12: Effectiveness of different level feature in PSDF.SMOTE- Tomek.Meanwhile, the results are presented in the form of confusion matrices, as shown in Figure 13a to Figure 13d.",
+    "length": 225
+  },
+  {
+    "id": 243,
+    "text": "on matrices, as shown in Figure 13a to Figure 13d.Comparing the four confusion matrices, we observe that after applying the SMOTE- Tomek algorithm, the classification accuracy for the minority class samples is significantly improved and the model bias phenomenon is eliminated, which indicates that the algorithm effectively solves the class imbalance problem in the dataset.",
+    "length": 375
+  },
+  {
+    "id": 244,
+    "text": "solves the class imbalance problem in the dataset.In the situation of raw data, the model bias phenomenon is very serious.Although it will have high accuracy, it fails for Ponzi contract detection.The experimental results further validate the effectiveness of the SMOTE- Tomek algorithm in dealing with imbalanced datasets.",
+    "length": 323
+  },
+  {
+    "id": 245,
+    "text": "mek algorithm in dealing with imbalanced datasets.The improved classification results show that the application of the SMOTE- Tomek algorithm successfully balances the dataset and improves the ability of the model to correctly classify minority classes.6.Conclusion In conclusion, PSDF is an effective method specifically designed to detect Ponzi schemes in smart contracts.",
+    "length": 374
+  },
+  {
+    "id": 246,
+    "text": "signed to detect Ponzi schemes in smart contracts.According to detailed experimental results, PSDF shows excellent performance in identifying Ponzi contracts.PSDF differs from other techniques used to detect various vulnerabilities in smart contracts, because it is specifically designed for Ponzi scheme detection.",
+    "length": 315
+  },
+  {
+    "id": 247,
+    "text": " specifically designed for Ponzi scheme detection.Ponzi schemes involve deceptive financial practices and fraudulent investment schemes, requiring a unique approach that focuses on capturing and analyzing financial patterns and user behavior within smart contracts.",
+    "length": 265
+  },
+  {
+    "id": 248,
+    "text": "patterns and user behavior within smart contracts.PSDF is specifically tailored to address these specific characteristics of Ponzi schemes, enabling accurate identification and detection of Ponzi scheme smart contracts.PSDF has broader applications in the analysis and classification of smart contracts beyond Ponzi detection.",
+    "length": 326
+  },
+  {
+    "id": 249,
+    "text": "ication of smart contracts beyond Ponzi detection.It can assist auditors, regulators, and platform operators in monitoring and ensuring the integrity of smart contracts within blockchain ecosystems.PSDF can Fig.13: Confusion matrix for Ponzi contract detection with different sampling techniques.",
+    "length": 296
+  },
+  {
+    "id": 250,
+    "text": "ract detection with different sampling techniques.conduct ponzi detection based on the features of smart contracts, which becomes an important tool for detecting and preventing fraudulent activities in the Ethereum- based derivative space.In our future work, we have the following to improve.",
+    "length": 292
+  },
+  {
+    "id": 251,
+    "text": "our future work, we have the following to improve.We need to continue to test or evaluate the generalization ability of our scheme with more or more complex data.In addition, in this paper, we focus only on Ponzi schemes in smart contracts.However, in real- world scenarios, there are other dangers or vulnerabilities in smart contracts, which can also cause huge losses in Ethereum.",
+    "length": 383
+  },
+  {
+    "id": 252,
+    "text": "cts, which can also cause huge losses in Ethereum.Therefore, we focus on other vulnerabilities of smart contracts, such as timestamp dependency, overflow of operations, etc., to ensure the security of Ethereum.References L.Liu, W.Tsai, M.Bhuiyan, H.Peng and M.Liu, Blockchain-enabled fraud discovery through abnormal smart contract detection on ethereum, Future Gener.Comput.Syst.128 (2022) 158-166.",
+    "length": 399
+  },
+  {
+    "id": 253,
+    "text": "reum, Future Gener.Comput.Syst.128 (2022) 158-166.J.Wu, K.Lin, D.Lin, Z.Zheng, H.Huang and Z.Zheng, Financial crimes in web3-empowered metaverse: Taxonomy, countermeasures, and opportunities, IEEE Open J.Comput.Soc.4 (2023) 37-49.",
+    "length": 230
+  }
+]

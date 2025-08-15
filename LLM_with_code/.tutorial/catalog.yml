@@ -1,0 +1,26 @@
+chapters:
+  - title: 概述
+    article: /workspace/README.md
+    code: ''
+    video: ''
+  - title: 1.为代码选择合适的大规模语言模型
+    article: /workspace/.tutorial/1.md
+  - title: 2.代码理解和生成
+    article: /workspace/.tutorial/2.md
+    code: ''
+  - title: 3. FalconLLM
+    article: /workspace/.tutorial/3.md
+    code: /workspace/code/1.ipynb
+  - title: 4. CodeLlama
+    article: /workspace/.tutorial/4.md
+    code: /workspace/code/2.ipynb
+  - title: 5. StarCoder
+    article: /workspace/.tutorial/5.md
+    code: /workspace/code/3.ipynb
+  - title: 6. 像算法一样行动
+    article: /workspace/.tutorial/6.md
+    code: /workspace/code/4.ipynb
+  - title: 7. 利用代码解释器
+    article: /workspace/.tutorial/7.md
+  - title: 总结
+    article: /workspace/.tutorial/8.md

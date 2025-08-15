@@ -1,0 +1,16 @@
+chapters:
+  - title: 引言与动机：AI驱动的材料科学革命
+    article: /workspace/README.md
+    code: ''
+    video: ''
+  - title: 1. 大模型基础知识
+    article: /workspace/.tutorial/1.md
+  - title: 2. 应用案例（1）
+    article: /workspace/.tutorial/2.md
+    code: /workspace/code/2.ipynb
+  - title: 3. 应用案例（2）
+    article: /workspace/.tutorial/3.md
+    code: /workspace/code/3.ipynb
+  - title: 4. 应用案例（3）
+    article: /workspace/.tutorial/4.md
+    code: /workspace/code/4.ipynb

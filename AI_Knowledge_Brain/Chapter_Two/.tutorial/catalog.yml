@@ -1,0 +1,14 @@
+chapters:
+  - title: 2.1 向量与向量数据库基础
+    article: /workspace/.tutorial/2.1.md
+    code: ''
+    video: ''
+  - title: 2.2 文本向量化技术
+    article: /workspace/.tutorial/2.2.md
+    code: /workspace/code/2.2.py
+  - title: 2.3 FAISS向量库实践
+    article: /workspace/.tutorial/2.3.md
+    code: /workspace/code/2.3.py
+  - title: 2.4 知识库构建工程化
+    article: /workspace/.tutorial/2.4.md
+    code: /workspace/code/2.4.ipynb

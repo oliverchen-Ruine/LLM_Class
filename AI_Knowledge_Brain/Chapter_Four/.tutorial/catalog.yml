@@ -1,0 +1,9 @@
+chapters:
+  - title: 零代码平台-Dify
+    article: /workspace/README.md
+    code: ''
+    video: ''
+  - title: 知识库构建
+    article: /workspace/.tutorial/1.md
+  - title: 以工作流方式搭建AI知识脑
+    article: /workspace/.tutorial/2.md
